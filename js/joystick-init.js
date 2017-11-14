@@ -2,6 +2,7 @@ var joystick = ( function ($) {
 
     var joystick;
     var joystickData = null;
+    var deadZoneIsOn = true;
 
     // create joystick
     (function createJoystick () {
@@ -55,10 +56,20 @@ var joystick = ( function ($) {
         }, 0);
     }
 
+    // other event bindings
+    $("#deadzone")
+        .click(function() { deadZoneIsOn = this.checked;} );
+
+    // initial value
+    $("#deadzone").attr("checked", "true");
+
     // public: sensor data accessor
     function getSensorData () { return joystickData };
 
+    function isDeadzoneOn () { return deadZoneIsOn };
+
     var api = {};
     api.getSensorData = getSensorData;
+    api.isDeadzoneOn = isDeadzoneOn
     return api;
 } )(jQuery);

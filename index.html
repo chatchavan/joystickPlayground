@@ -35,6 +35,9 @@
                 normalized Y: <span id="normY"></span>
             </div>
             <label>
+                <input type="checkbox" id="deadzone"/> Dead zone
+            </label>
+            <label>
                 <input type="checkbox" id="normTrace"/> Show traces
             </label>
             <button id="clearNormalizedView">Clear</button>
@@ -142,7 +145,7 @@
                 // retrieve raw data from joystick
                 var joystickData = joystick.getSensorData();
                 if (joystickData === null ||
-                    joystickData.distance < 30)     // papaya
+                    (joystick.isDeadzoneOn() && joystickData.distance < 30))     // papaya
                 {
                     joystickData = {
                         angle: { degree: 0, radian: 0},
